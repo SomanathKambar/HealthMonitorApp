@@ -1,0 +1,26 @@
+[
+  {
+    "key": "rest_breathing",
+    "title": "Rest & Breathing",
+    "description": "Sit quietly and do slow deep breathing for 5-10 minutes. Repeat if heart rate remains high.",
+    "repeatHours": 6
+  },
+  {
+    "key": "reduce_salt_walk",
+    "title": "Low-salt Diet & Walk",
+    "description": "Reduce salt intake and take a brisk 20-30 minute walk daily.",
+    "repeatHours": 24
+  },
+  {
+    "key": "hydrate_rest",
+    "title": "Hydrate & Rest",
+    "description": "Drink water, rest, and monitor temperature. Seek medical care if fever persists.",
+    "repeatHours": 6
+  },
+  {
+    "key": "seek_help_oxygen",
+    "title": "Seek Medical Help",
+    "description": "Low oxygen detected. Contact healthcare services or visit emergency care if breathing difficulty occurs.",
+    "repeatHours": 1
+  }
+]

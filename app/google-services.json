@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "241899878467",
+    "project_id": "healthmonitor-bac16",
+    "storage_bucket": "healthmonitor-bac16.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241899878467:android:aaafb21deb4278bf09fcf6",
+        "android_client_info": {
+          "package_name": "com.vkm.healthmonitor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBaaAi0brrRveWq5wso13alA1spEVrFeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Health Monitor</string>
+    <string name="profile">Profile</string>
+    <string name="vitals">Vitals</string>
+    <string name="hydration">Hydration</string>
+    <string name="charts">Charts</string>
+    <string name="guides">Guides</string>
+</resources>
