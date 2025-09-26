@@ -4,8 +4,6 @@ package com.vkm.healthmonitor.compose.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vkm.healthmonitor.compose.data.model.Profile
-import com.vkm.healthmonitor.compose.data.model.ProfileWithVitals
-import com.vkm.healthmonitor.compose.data.repository.HealthRepository
 import com.vkm.healthmonitor.compose.data.repository.ProfileRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -12,7 +12,7 @@ interface StandardsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(s: HealthStandard)
 
-    @Query("SELECT value FROM standards WHERE key = :key LIMIT 1")
-    suspend fun getValue(key: String): String?
+    @Query("SELECT value FROM standards WHERE healthKey = :healthKey LIMIT 1")
+    suspend fun getValue(healthKey: String): String?
 }
 

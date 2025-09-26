@@ -1,13 +1,10 @@
 package com.vkm.healthmonitor.compose.viewmodel
 
-import com.vkm.healthmonitor.compose.data.model.HealthPlan
-import com.vkm.healthmonitor.compose.data.repository.PlanRepository
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vkm.healthmonitor.compose.data.model.HealthPlan
+import com.vkm.healthmonitor.compose.data.repository.PlanRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

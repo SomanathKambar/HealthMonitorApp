@@ -1,16 +1,12 @@
 package com.vkm.healthmonitor.compose.util
 
-import android.Manifest
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-
-import android.app.NotificationManager
-import com.vkm.healthmonitor.compose.MainActivity
 import com.vkm.healthmonitor.R
+import com.vkm.healthmonitor.compose.MainActivity
 
 object NotificationUtil {
     fun showHydrationReminder(ctx: Context, profileId: Int) {

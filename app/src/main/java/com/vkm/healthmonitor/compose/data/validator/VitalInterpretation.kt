@@ -19,7 +19,7 @@ object Validator {
 
     private fun mapFromStandards(s: List<HealthStandard>): Map<String, String> {
         val m = defaults.toMutableMap()
-        s.forEach { m[it.key] = it.value }
+        s.forEach { m[it.healthKey] = it.value }
         return m
     }
 

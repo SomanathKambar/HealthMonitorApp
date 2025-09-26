@@ -1,8 +1,6 @@
 package com.vkm.healthmonitor.compose.worker
 
-import android.Manifest
 import android.content.Context
-import androidx.annotation.RequiresPermission
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.vkm.healthmonitor.compose.util.NotificationUtil

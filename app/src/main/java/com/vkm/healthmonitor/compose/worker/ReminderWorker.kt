@@ -15,8 +15,8 @@ class ReminderWorker(appContext: Context, params: WorkerParameters) : Worker(app
         val msg = inputData.getString("msg") ?: "Health Reminder"
         val channelId = "health_reminder_channel"
         val notif = NotificationCompat.Builder(applicationContext, channelId)
-//            .setSmallIcon(R.drawable.ic_notification)
-//            .setContentTitle("Health Monitor")
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle("Health Monitor")
             .setContentText(msg)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()

@@ -8,16 +8,9 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.res.painterResource
+import androidx.compose.material3.MaterialTheme
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.compose.rememberNavController
-import com.vkm.healthmonitor.R
-import com.vkm.healthmonitor.compose.ui.navigation.MainNavHost
-import com.vkm.healthmonitor.compose.ui.navigation.Screen
 import com.vkm.healthmonitor.compose.ui.screens.MainAppScaffold
 import com.vkm.healthmonitor.compose.util.ReminderScheduler
 import dagger.hilt.android.AndroidEntryPoint

@@ -8,7 +8,6 @@ import com.vkm.healthmonitor.compose.data.repository.HealthRepository
 import com.vkm.healthmonitor.compose.data.repository.HydrationRepository
 import com.vkm.healthmonitor.compose.data.repository.PlanRepository
 import com.vkm.healthmonitor.compose.data.repository.ProfileRepository
-import com.vkm.healthmonitor.compose.data.repository.SyncRepository
 import com.vkm.healthmonitor.compose.data.repository.VitalRepository
 import dagger.Module
 import dagger.Provides

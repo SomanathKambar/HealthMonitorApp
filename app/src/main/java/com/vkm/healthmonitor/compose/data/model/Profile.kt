@@ -1,10 +1,7 @@
 package com.vkm.healthmonitor.compose.data.model
 
-import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import androidx.room.Relation
 
 @Entity(tableName = "profiles")
 data class Profile(
@@ -22,7 +19,7 @@ data class Profile(
         fun computeBmi(heightCm: Float, weightKg: Float): Float {
             return if (heightCm > 0f && weightKg > 0f) {
                 val m = heightCm / 100f
-                (weightKg / (m * m)).toFloat()
+                (weightKg / (m * m))
             } else 0f
         }
     }

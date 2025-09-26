@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "standards")
 data class HealthStandard(
-    @PrimaryKey val key: String,
+    @PrimaryKey val healthKey: String,
     val value: String
 )
 
