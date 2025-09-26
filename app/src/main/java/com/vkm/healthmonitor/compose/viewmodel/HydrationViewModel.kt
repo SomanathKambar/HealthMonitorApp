@@ -6,11 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.vkm.healthmonitor.compose.data.model.HydrationLog
 import com.vkm.healthmonitor.compose.data.repository.HydrationRepository
 import com.vkm.healthmonitor.compose.data.repository.ProfileRepository
+import com.vkm.healthmonitor.compose.data.result.HydrationResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,38 +22,29 @@ class HydrationViewModel @Inject constructor(
     private val profileRepo: ProfileRepository
 ) : ViewModel() {
 
-//    // current profile id from profileRepo
-//    val currentProfileId: StateFlow<Int?> = profileRepo.currentProfileIdFlow()
-//        .stateIn(viewModelScope, SharingStarted.Eagerly, 0)
+//    private val _todayTotal = MutableStateFlow(0)
+//    val todayTotal: StateFlow<Int> = _todayTotal
 //
-//    // today's total depends on current profile
-//    val today: StateFlow<Int> = currentProfileId.filterNotNull().flatMapLatest { pid ->
-//        if (pid == 0) flowOf(0) else repo.todayHydrationFlowForProfile(pid)
-//    }.stateIn(viewModelScope, SharingStarted.Eagerly, 0)
+//    private val _todayLogs = MutableStateFlow<List<HydrationLog>>(emptyList())
+//    val todayLogs: StateFlow<List<HydrationLog>> = _todayLogs
 //
-//    fun add(amount: Int) {
-//        viewModelScope.launch {
-//            val pid = currentProfileId.value ?: return@launch
-//            if (pid != 0) repo.insertHydration(pid, amount)
+//    private var collectJob: Job? = null
+//
+//    fun observeFor(profileId: Int) {
+//        collectJob?.cancel()
+//        collectJob = viewModelScope.launch {
+//            repo.todayTotalFlow(profileId).collectLatest { total ->
+//                _todayTotal.value = total
+//            }
+//        }
+//        // separate flow for logs
+//        collectJob = viewModelScope.launch {
+//            repo.todayLogsFlow(profileId).collectLatest { logs -> _todayLogs.value = logs }
 //        }
 //    }
 //
-//    fun removeLast() {
-//        viewModelScope.launch {
-//            val pid = currentProfileId.value ?: return@launch
-//            if (pid != 0) repo.removeLastHydration(pid)
-//        }
-//    }
-//
-//    private val _hydrationLogs = MutableStateFlow<List<HydrationLog>>(emptyList())
-//    val hydrationLogs: StateFlow<List<HydrationLog>> = _hydrationLogs
-//
-//    fun addDrink(amount: Int, profileId: Int?) {
-//        if (profileId == null) return
-//        viewModelScope.launch {
-//            repo.insertHydration(profileId, amount)
-//            _hydrationLogs.value = repo.getHydrationForProfile(profileId)
-//        }
+//    fun addDrink(profileId: Int, amountMl: Int) = viewModelScope.launch {
+//        repo.insertHydration(profileId = profileId, amountMl = amountMl)
 //    }
 
     private val _todayTotal = MutableStateFlow(0)
@@ -60,28 +53,41 @@ class HydrationViewModel @Inject constructor(
     private val _todayLogs = MutableStateFlow<List<HydrationLog>>(emptyList())
     val todayLogs: StateFlow<List<HydrationLog>> = _todayLogs
 
-    private var collectJob: Job? = null
+    // For feedback
+    private val _error = MutableSharedFlow<String>()
+    val error: SharedFlow<String> = _error
+
+    private var logsJob: Job? = null
+    private var totalJob: Job? = null
 
     fun observeFor(profileId: Int) {
-        collectJob?.cancel()
-        collectJob = viewModelScope.launch {
-            repo.todayTotalFlow(profileId).collectLatest { total ->
-                _todayTotal.value = total
-            }
+        logsJob?.cancel(); totalJob?.cancel()
+
+        totalJob = viewModelScope.launch {
+            repo.todayTotalFlow(profileId).collect { total -> _todayTotal.value = total }
         }
-        // separate flow for logs
-        collectJob = viewModelScope.launch {
-            repo.todayLogsFlow(profileId).collectLatest { logs -> _todayLogs.value = logs }
+        logsJob = viewModelScope.launch {
+            repo.todayLogsFlow(profileId).collect { logs -> _todayLogs.value = logs }
         }
     }
 
     fun addDrink(profileId: Int, amountMl: Int) = viewModelScope.launch {
-        repo.insertHydration(profileId = profileId, amountMl = amountMl)
+        when (val res = repo.tryAddHydration(profileId, amountMl)) {
+            is HydrationResult.Success -> { /* OK, UI will update via flows */ }
+            is HydrationResult.ExceedsSafe -> {
+                _error.emit("Cannot add: would exceed safe limit of ${res.safeCap} ml for today.")
+            }
+            is HydrationResult.Error -> {
+                _error.emit("Error: ${res.reason}")
+            }
+        }
     }
 
     fun removeLast(profileId: Int) = viewModelScope.launch {
-        val last = repo.lastForProfile(profileId)
-        last?.let { repo.insertHydration(it.id, it.amountMl) /* no-op placeholder; you'll call deleteById in DAO */ }
-        // better to call dao.deleteById(last.id) - but repo currently lacks a deleteById wrapper; implement if needed.
+        try {
+            repo.removeLastHydration(profileId)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

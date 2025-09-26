@@ -18,6 +18,7 @@ import com.vkm.healthmonitor.compose.data.model.Profile
 import com.vkm.healthmonitor.compose.data.model.VitalEntry
 import com.vkm.healthmonitor.compose.worker.HydrationReminderWorker
 import com.vkm.healthmonitor.compose.worker.SchedulePlanNotificationWorker
+import com.vkm.healthmonitor.constant.AppConstants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -73,18 +74,18 @@ class HealthRepository @Inject constructor(private val db: AppDatabase, private 
         try { uploadVitalToFirestore(withProfile) } catch (_: Exception) {}
     }
 
-    suspend fun insertHydration(profileId: Int, amountMl: Int) = withContext(Dispatchers.IO) {
-        val log = HydrationLog(profileId = profileId, amountMl = amountMl)
-        hydrationDao.insert(log)
-        try { uploadHydrationToFirestore(log) } catch (_: Exception) {}
-        // schedule next hydration reminder (default interval or from standards)
-        scheduleNextHydration(profileId)
-    }
-
-    suspend fun removeLastHydration(profileId: Int) = withContext(Dispatchers.IO) {
-        val last = hydrationDao.lastForProfile(profileId)
-        last?.let { hydrationDao.deleteById(it.id) }
-    }
+//    suspend fun insertHydration(profileId: Int, amountMl: Int) = withContext(Dispatchers.IO) {
+//        val log = HydrationLog(profileId = profileId, amountMl = amountMl)
+//        hydrationDao.insert(log)
+//        try { uploadHydrationToFirestore(log) } catch (_: Exception) {}
+//        // schedule next hydration reminder (default interval or from standards)
+//        scheduleNextHydration(profileId)
+//    }
+//
+//    suspend fun removeLastHydration(profileId: Int) = withContext(Dispatchers.IO) {
+//        val last = hydrationDao.lastForProfile(profileId)
+//        last?.let { hydrationDao.deleteById(it.id) }
+//    }
 
     suspend fun insertPlan(plan: HealthPlan) = withContext(Dispatchers.IO) {
         val id = plansDao.insert(plan)
@@ -123,7 +124,7 @@ class HealthRepository @Inject constructor(private val db: AppDatabase, private 
         val intervalHours = 2L // could read from standards via coroutine if needed
         val req = OneTimeWorkRequestBuilder<HydrationReminderWorker>()
             .setInitialDelay(intervalHours, TimeUnit.HOURS)
-            .setInputData(workDataOf("profileId" to profileId))
+            .setInputData(workDataOf(AppConstants.WORK_DATA_KEY_PROFILE_ID to profileId))
             .build()
         workManager.enqueueUniqueWork("hydration_for_$profileId", ExistingWorkPolicy.REPLACE, req)
     }

@@ -1,1 +1,1 @@
-
+-keep public class androidx.compose.*.**{*;}

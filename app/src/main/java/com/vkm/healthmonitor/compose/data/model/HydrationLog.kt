@@ -17,7 +17,8 @@ data class HydrationLog(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val profileId: Int,
     val amountMl: Int,
-    val timestamp: Long = System.currentTimeMillis()
+    val timestamp: Long = System.currentTimeMillis(),
+    val firestoreId: String? = null
 )
 
 

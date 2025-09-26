@@ -3,6 +3,7 @@ package com.vkm.healthmonitor.compose
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.vkm.healthmonitor.compose.ui.screens.MainAppScaffold
 import com.vkm.healthmonitor.compose.util.ReminderScheduler
+import com.vkm.healthmonitor.constant.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -71,5 +73,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+       val action =  intent?.extras?.getString(AppConstants.HYDRATION_ACTION, "")
+        if(action == AppConstants.HYDRATION_ACTION) {
+            ReminderScheduler.scheduleWaterReminder(this)
+        }
+    }
 }
 
