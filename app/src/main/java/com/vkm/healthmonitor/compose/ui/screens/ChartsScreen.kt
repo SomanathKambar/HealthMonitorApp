@@ -4,8 +4,10 @@ package com.vkm.healthmonitor.compose.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,23 +21,21 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.vkm.healthmonitor.compose.ui.components.ChartsForProfiles
 import com.vkm.healthmonitor.compose.viewmodel.ProfileListViewModel
-import com.vkm.healthmonitor.compose.viewmodel.VitalsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChartsScreen(
-    profileVm: ProfileListViewModel = hiltViewModel(),
-    vitalsVm: VitalsViewModel = hiltViewModel()
+    profileVm: ProfileListViewModel = hiltViewModel()
 ) {
     val profilesWithVitals by profileVm.profilesWithVitals.collectAsState()
-    val selected by profileVm.selectedProfile.collectAsState()
 
     Column(Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text("Charts", style = MaterialTheme.typography.titleLarge)
             Button(onClick = { /* maybe export or refresh */ }) { Text("Refresh") }
         }
-    ChartsForProfiles(profilesWithVitals)
+        ChartsForProfiles(profilesWithVitals)
+        Spacer(Modifier.height(34.dp))
     }
 }
 

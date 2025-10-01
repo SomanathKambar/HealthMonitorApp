@@ -7,6 +7,7 @@ package com.vkm.healthmonitor.compose.ui.components
 import android.content.Context
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -36,5 +37,7 @@ fun PieChartView(entries: List<Pair<String, Float>>, modifier: Modifier = Modifi
         }
         chart.data = PieData(ds)
         chart.invalidate()
-    }, modifier = modifier.fillMaxWidth().height(250.dp))
+    }, modifier = modifier.fillMaxWidth()
+        .height(250.dp)
+        .padding(bottom = 20.dp))
 }
