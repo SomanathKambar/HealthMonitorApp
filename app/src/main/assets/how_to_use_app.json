@@ -1,0 +1,26 @@
+[
+  {
+    "title": "How to Measure Pulse",
+    "description": "Place two fingers on the inside of the wrist to feel the pulse. Count beats for 60 seconds. If you have a smartwatch or fitness band, you can use it to measure continuously and more accurately."
+  },
+  {
+    "title": "Using a Home Blood Pressure Monitor",
+    "description": "Sit comfortably and rest for 5 minutes before measuring. Keep the cuff at heart level and follow the device instructions. Record at the same time each day to observe trends."
+  },
+  {
+    "title": "Temperature Measurement and Fever Guide",
+    "description": "Use a digital thermometer. Normal body temperature is 36.5–37.5 °C. If temperature is > 38.0 °C for adults, take rest and fluids — consult a healthcare provider if it persists or is very high."
+  },
+  {
+    "title": "SpO₂ (Oxygen Saturation) Measurement",
+    "description": "Use a pulse oximeter on the fingertip. Normal SpO₂ is ≥95%. Values < 90% are critical; seek urgent medical attention. Avoid nail polish and cold hands for accurate reading."
+  },
+  {
+    "title": "Hydration Tips",
+    "description": "Aim for 2000–3000 ml per day depending on activity. Use quick-add buttons in the Hydration screen. Avoid excessive intake (>4L/day) without medical advice. Drink small amounts regularly rather than large amounts rarely."
+  },
+  {
+    "title": "Interpreting Your Charts",
+    "description": "Line charts show trends over time: look for upward/downward trends (e.g., rising BP). Pie chart and family overview show the distribution of normal/warning/critical vitals. Tap a pie slice to view detailed issues and recommendations."
+  }
+]

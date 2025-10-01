@@ -3,9 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.INTERNET"/>
-    <application android:name=".application.HealthApp" android:allowBackup="true" android:label="Health Monitor Pro"
-
-        android:supportsRtl="true" android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+    <application android:name=".application.HealthApp"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:allowBackup="true"
+        android:label="Health Monitor Pro"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
         <activity android:name=".compose.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
