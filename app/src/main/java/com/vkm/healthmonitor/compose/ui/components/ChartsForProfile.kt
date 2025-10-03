@@ -226,9 +226,8 @@ fun ChartsForProfiles(profilesWithVitals: List<ProfileWithVitals>) {
 
         // Family aggregated health card at bottom
         item {
-            FamilyHealthCard(profilesWithVitals)
+           FamilyHealthCard(profilesWithVitals)
         }
         item {    Spacer(Modifier.height(34.dp)) }
     }
 }
-
