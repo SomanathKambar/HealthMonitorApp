@@ -13,5 +13,4 @@ Setup:
 Scheduling example (call in MainActivity or on profile save):
 
 
-https://github.com/user-attachments/assets/e0c1f09f-a409-49b0-a6c2-a5b8cf59c47e
-
+![SimulatorScreenRecording-iPhone15Pro-2025-11-06at13 11 47-ezgif com-optimize](https://github.com/user-attachments/assets/8da9e83f-b355-4f12-bcf3-721fce69e277)
