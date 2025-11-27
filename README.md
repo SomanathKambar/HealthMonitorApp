@@ -11,3 +11,7 @@ Setup:
 6. To enable hydration reminders: schedule a WorkManager periodic request in your app (example below).
 
 Scheduling example (call in MainActivity or on profile save):
+
+
+https://github.com/user-attachments/assets/e0c1f09f-a409-49b0-a6c2-a5b8cf59c47e
+
