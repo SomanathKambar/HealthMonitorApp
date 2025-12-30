@@ -9,8 +9,3 @@ Setup:
     - If you add Firebase, ensure Firestore rules and a collection 'config' with doc 'health_standards' exist.
 5. Build & Run on device/emulator (minSdk 24).
 6. To enable hydration reminders: schedule a WorkManager periodic request in your app (example below).
-
-Scheduling example (call in MainActivity or on profile save):
-
-
-![SimulatorScreenRecording-iPhone15Pro-2025-11-06at13 11 47-ezgif com-optimize](https://github.com/user-attachments/assets/8da9e83f-b355-4f12-bcf3-721fce69e277)
