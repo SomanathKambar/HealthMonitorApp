@@ -1,7 +1,7 @@
 package com.vkm.healthmonitor.compose.data.repository
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.vkm.healthmonitor.compose.data.db.AppDatabase
+import com.vkm.healthmonitor.core.database.AppDatabase
 import com.vkm.healthmonitor.core.model.Profile
 import com.vkm.healthmonitor.core.model.VitalEntry
 import kotlinx.coroutines.CoroutineScope

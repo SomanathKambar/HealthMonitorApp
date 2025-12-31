@@ -2,7 +2,7 @@ package com.vkm.healthmonitor.compose.data.repository
 
 import android.content.Context
 import com.google.firebase.firestore.FirebaseFirestore
-import com.vkm.healthmonitor.compose.data.db.AppDatabase
+import com.vkm.healthmonitor.core.database.AppDatabase
 import com.vkm.healthmonitor.core.model.VitalEntry
 import com.vkm.healthmonitor.core.common.awaitTask
 import dagger.hilt.android.qualifiers.ApplicationContext

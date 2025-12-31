@@ -8,7 +8,7 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.google.firebase.firestore.FirebaseFirestore
-import com.vkm.healthmonitor.compose.data.db.AppDatabase
+import com.vkm.healthmonitor.core.database.AppDatabase
 import com.vkm.healthmonitor.compose.worker.HydrationReminderWorker
 import com.vkm.healthmonitor.compose.worker.SchedulePlanNotificationWorker
 import com.vkm.healthmonitor.constant.AppConstants

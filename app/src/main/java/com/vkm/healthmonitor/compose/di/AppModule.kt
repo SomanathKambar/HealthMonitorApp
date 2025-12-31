@@ -3,7 +3,7 @@ package com.vkm.healthmonitor.compose.di
 import android.content.Context
 import androidx.work.WorkManager
 import com.google.firebase.firestore.FirebaseFirestore
-import com.vkm.healthmonitor.compose.data.db.AppDatabase
+import com.vkm.healthmonitor.core.database.AppDatabase
 import com.vkm.healthmonitor.compose.data.repository.HealthRepository
 import com.vkm.healthmonitor.compose.data.repository.HydrationRepository
 import com.vkm.healthmonitor.compose.data.repository.PlanRepository

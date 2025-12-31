@@ -1,4 +1,4 @@
-package com.vkm.healthmonitor.compose.data.db
+package com.vkm.healthmonitor.core.database
 
 
 import androidx.room.*

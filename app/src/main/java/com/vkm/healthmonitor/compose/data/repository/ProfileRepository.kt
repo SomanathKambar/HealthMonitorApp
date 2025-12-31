@@ -3,7 +3,7 @@ package com.vkm.healthmonitor.compose.data.repository
 
 import android.content.Context
 import com.google.firebase.firestore.FirebaseFirestore
-import com.vkm.healthmonitor.compose.data.db.AppDatabase
+import com.vkm.healthmonitor.core.database.AppDatabase
 import com.vkm.healthmonitor.core.model.CurrentSelection
 import com.vkm.healthmonitor.core.model.Profile
 import com.vkm.healthmonitor.core.model.ProfileWithVitals
