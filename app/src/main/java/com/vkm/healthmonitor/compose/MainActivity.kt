@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.vkm.healthmonitor.compose.ui.screens.MainAppScaffold
 import com.vkm.healthmonitor.core.common.util.ReminderScheduler
 import com.vkm.healthmonitor.core.common.constant.AppConstants
+import com.vkm.healthmonitor.core.designsystem.theme.HealthMonitorTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,10 +46,10 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            MaterialTheme {
-            MainAppScaffold()
+            HealthMonitorTheme {
+                MainAppScaffold()
+            }
         }
-    }
     }
 
     private fun createNotificationChannel() {

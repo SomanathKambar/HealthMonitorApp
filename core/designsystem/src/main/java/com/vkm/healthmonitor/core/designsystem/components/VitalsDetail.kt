@@ -1,4 +1,4 @@
-package com.vkm.healthmonitor.compose.ui.components
+package com.vkm.healthmonitor.core.designsystem.components
 
 import com.vkm.healthmonitor.core.model.ProfileWithVitals
 import com.vkm.healthmonitor.core.model.VitalsSummaryItem
@@ -68,9 +68,9 @@ fun buildVitalsSummary(profile: ProfileWithVitals): Map<String, VitalsSummaryIte
         val warning = if (warningList.isNotEmpty()) warningList.joinToString(", ") else "All good"
         val critical  = if (criticalList.isNotEmpty()) criticalList.joinToString(", ") else "All good"
     return mapOf(
-        "Normal" to VitalsSummaryItem (normal, "Keep doing regular checkups"),
-        "Warning" to VitalsSummaryItem(warning,  recommendation = if (warningRec.isNotEmpty()) warningRec.joinToString(" ") else "Monitor health closely."),
-        "Critical" to VitalsSummaryItem( critical, recommendation = if (criticalRec.isNotEmpty()) criticalRec.joinToString(" ") else "Immediate medical consultation required!")
+        "NORMAL" to VitalsSummaryItem (normal, "Keep doing regular checkups"),
+        "WARNING" to VitalsSummaryItem(warning,  recommendation = if (warningRec.isNotEmpty()) warningRec.joinToString(" ") else "Monitor health closely."),
+        "CRITICAL" to VitalsSummaryItem( critical, recommendation = if (criticalRec.isNotEmpty()) criticalRec.joinToString(" ") else "Immediate medical consultation required!")
     )
 
 }

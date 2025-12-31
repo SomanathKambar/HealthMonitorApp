@@ -11,7 +11,7 @@ import com.vkm.healthmonitor.core.database.AppDatabase
 import com.vkm.healthmonitor.core.common.validator.HydrationLogic
 import com.vkm.healthmonitor.core.datastore.HydrationPrefs
 import com.vkm.healthmonitor.core.common.util.HydrationUtil
-import com.vkm.healthmonitor.core.common.util.NotificationUtil
+import com.vkm.healthmonitor.core.designsystem.util.NotificationUtil
 import com.vkm.healthmonitor.core.common.constant.AppConstants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull

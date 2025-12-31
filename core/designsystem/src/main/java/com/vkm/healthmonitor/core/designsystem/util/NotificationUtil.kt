@@ -1,4 +1,4 @@
-package com.vkm.healthmonitor.core.common.util
+package com.vkm.healthmonitor.core.designsystem.util
 
 import android.app.NotificationManager
 import android.app.PendingIntent

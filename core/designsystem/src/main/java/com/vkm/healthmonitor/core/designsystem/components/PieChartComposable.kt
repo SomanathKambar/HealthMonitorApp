@@ -1,4 +1,4 @@
-package com.vkm.healthmonitor.compose.ui.components
+package com.vkm.healthmonitor.core.designsystem.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
