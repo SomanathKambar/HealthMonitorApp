@@ -51,6 +51,8 @@ dependencies {
     implementation(project(":core:datastore"))
     implementation(project(":core:data"))
     implementation(project(":core:designsystem"))
+    implementation(project(":feature:hydration"))
+    implementation(project(":feature:profile"))
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)

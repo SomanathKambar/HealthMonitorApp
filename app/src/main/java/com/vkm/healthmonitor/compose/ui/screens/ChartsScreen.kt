@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.vkm.healthmonitor.core.designsystem.components.ChartsForProfiles
-import com.vkm.healthmonitor.compose.viewmodel.ProfileListViewModel
+import com.vkm.healthmonitor.feature.profile.ProfileListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

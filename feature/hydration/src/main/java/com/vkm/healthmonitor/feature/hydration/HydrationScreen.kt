@@ -1,4 +1,4 @@
-package com.vkm.healthmonitor.compose.ui.screens
+package com.vkm.healthmonitor.feature.hydration
 
 
 import androidx.compose.foundation.layout.Arrangement
@@ -31,8 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.vkm.healthmonitor.core.common.validator.HydrationLogic
 import com.vkm.healthmonitor.core.designsystem.components.ProfileSelector
-import com.vkm.healthmonitor.compose.viewmodel.HydrationViewModel
-import com.vkm.healthmonitor.compose.viewmodel.ProfileListViewModel
+import com.vkm.healthmonitor.feature.hydration.HydrationViewModel
+import com.vkm.healthmonitor.feature.profile.ProfileListViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

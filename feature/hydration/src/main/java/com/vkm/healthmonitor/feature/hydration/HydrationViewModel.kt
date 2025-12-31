@@ -1,4 +1,4 @@
-package com.vkm.healthmonitor.compose.viewmodel
+package com.vkm.healthmonitor.feature.hydration
 
 
 import androidx.lifecycle.ViewModel

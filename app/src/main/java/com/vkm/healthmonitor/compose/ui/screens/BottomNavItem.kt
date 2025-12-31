@@ -9,7 +9,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.vkm.healthmonitor.R
-import com.vkm.healthmonitor.compose.ui.navigation.Screen
+import com.vkm.healthmonitor.core.common.Screen
 
 data class BottomNavItem(val route: String, val label: String, val icon: Int)
 

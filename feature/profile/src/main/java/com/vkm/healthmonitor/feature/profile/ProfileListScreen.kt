@@ -1,4 +1,4 @@
-package com.vkm.healthmonitor.compose.ui.screens
+package com.vkm.healthmonitor.feature.profile
 
 //@Composable
 //fun ProfileListScreen(
@@ -72,9 +72,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.vkm.healthmonitor.compose.ui.navigation.Screen
-import com.vkm.healthmonitor.compose.viewmodel.ProfileFormViewModel
-import com.vkm.healthmonitor.compose.viewmodel.ProfileListViewModel
+import com.vkm.healthmonitor.core.common.Screen
+import com.vkm.healthmonitor.feature.profile.ProfileFormViewModel
+import com.vkm.healthmonitor.feature.profile.ProfileListViewModel
 
 
 @Composable

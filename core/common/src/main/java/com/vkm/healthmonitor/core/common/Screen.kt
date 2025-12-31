@@ -1,4 +1,4 @@
-package com.vkm.healthmonitor.compose.ui.navigation
+package com.vkm.healthmonitor.core.common
 
 sealed class Screen(val route: String) {
     object ProfileList : Screen("profileList")

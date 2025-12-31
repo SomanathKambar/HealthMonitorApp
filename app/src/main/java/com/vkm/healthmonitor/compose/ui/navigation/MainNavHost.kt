@@ -4,11 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.vkm.healthmonitor.core.common.Screen
 import com.vkm.healthmonitor.compose.ui.screens.ChartsScreen
 import com.vkm.healthmonitor.compose.ui.screens.GuidesScreen
-import com.vkm.healthmonitor.compose.ui.screens.HydrationScreen
-import com.vkm.healthmonitor.compose.ui.screens.ProfileFormScreen
-import com.vkm.healthmonitor.compose.ui.screens.ProfileListScreen
+import com.vkm.healthmonitor.feature.hydration.HydrationScreen
+import com.vkm.healthmonitor.feature.profile.ProfileFormScreen
+import com.vkm.healthmonitor.feature.profile.ProfileListScreen
 import com.vkm.healthmonitor.compose.ui.screens.VitalsScreen
 
 @Composable

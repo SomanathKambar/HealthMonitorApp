@@ -10,7 +10,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.vkm.healthmonitor.core.model.ProfileWithVitals
 import com.vkm.healthmonitor.core.designsystem.components.ChartsForProfiles
 import com.vkm.healthmonitor.core.designsystem.components.ProfileSelector
-import com.vkm.healthmonitor.compose.viewmodel.ProfileListViewModel
+import com.vkm.healthmonitor.feature.profile.ProfileListViewModel
 import com.vkm.healthmonitor.compose.viewmodel.VitalsViewModel
 import kotlinx.coroutines.launch
 

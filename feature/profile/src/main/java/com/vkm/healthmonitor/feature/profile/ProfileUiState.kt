@@ -1,4 +1,4 @@
-package com.vkm.healthmonitor.compose.ui.state
+package com.vkm.healthmonitor.feature.profile
 
 data class ProfileUiState(
     val id: Int = 0,
