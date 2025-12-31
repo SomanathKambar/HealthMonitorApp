@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.vkm.healthmonitor.compose.data.model.CurrentSelection
-import com.vkm.healthmonitor.compose.data.model.HealthPlan
-import com.vkm.healthmonitor.compose.data.model.HealthStandard
-import com.vkm.healthmonitor.compose.data.model.HydrationLog
-import com.vkm.healthmonitor.compose.data.model.Profile
-import com.vkm.healthmonitor.compose.data.model.VitalEntry
+import com.vkm.healthmonitor.core.model.CurrentSelection
+import com.vkm.healthmonitor.core.model.HealthPlan
+import com.vkm.healthmonitor.core.model.HealthStandard
+import com.vkm.healthmonitor.core.model.HydrationLog
+import com.vkm.healthmonitor.core.model.Profile
+import com.vkm.healthmonitor.core.model.VitalEntry
 
 @Database(
     entities = [Profile::class, VitalEntry::class, HydrationLog::class, HealthStandard::class, HealthPlan::class, CurrentSelection::class],

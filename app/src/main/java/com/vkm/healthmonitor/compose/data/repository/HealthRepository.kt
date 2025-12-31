@@ -7,28 +7,25 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
-import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vkm.healthmonitor.compose.data.db.AppDatabase
-import com.vkm.healthmonitor.compose.data.model.CurrentSelection
-import com.vkm.healthmonitor.compose.data.model.HealthPlan
-import com.vkm.healthmonitor.compose.data.model.HealthStandard
-import com.vkm.healthmonitor.compose.data.model.HydrationLog
-import com.vkm.healthmonitor.compose.data.model.Profile
-import com.vkm.healthmonitor.compose.data.model.VitalEntry
 import com.vkm.healthmonitor.compose.worker.HydrationReminderWorker
 import com.vkm.healthmonitor.compose.worker.SchedulePlanNotificationWorker
 import com.vkm.healthmonitor.constant.AppConstants
+import com.vkm.healthmonitor.core.common.awaitTask
+import com.vkm.healthmonitor.core.model.CurrentSelection
+import com.vkm.healthmonitor.core.model.HealthPlan
+import com.vkm.healthmonitor.core.model.HealthStandard
+import com.vkm.healthmonitor.core.model.HydrationLog
+import com.vkm.healthmonitor.core.model.Profile
+import com.vkm.healthmonitor.core.model.VitalEntry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 class HealthRepository @Inject constructor(private val db: AppDatabase, private val fs: FirebaseFirestore, val workManager: WorkManager) {
 
@@ -134,13 +131,6 @@ class HealthRepository @Inject constructor(private val db: AppDatabase, private 
             .setInputData(workDataOf("planId" to plan.id))
             .build()
         workManager.enqueueUniquePeriodicWork("plan_${plan.id}", ExistingPeriodicWorkPolicy.REPLACE, req)
-    }
-
-    // Firestore coroutine await helper
-    private suspend fun <T> Task<T>.awaitTask(): T = suspendCancellableCoroutine { cont ->
-        addOnSuccessListener { r -> cont.resume(r) }
-            .addOnFailureListener { e -> cont.resumeWithException(e) }
-            .addOnCanceledListener { cont.cancel() }
     }
 
     // upload helpers (best-effort)

@@ -10,7 +10,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.vkm.healthmonitor.compose.data.model.FamilySliceSummary
+import com.vkm.healthmonitor.core.model.FamilySliceSummary
 
 @Composable
 fun PieChartComposable(

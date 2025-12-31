@@ -1,7 +1,7 @@
 package com.vkm.healthmonitor.compose.ui.components
 
-import com.vkm.healthmonitor.compose.data.model.ProfileWithVitals
-import com.vkm.healthmonitor.compose.data.model.VitalsSummaryItem
+import com.vkm.healthmonitor.core.model.ProfileWithVitals
+import com.vkm.healthmonitor.core.model.VitalsSummaryItem
 
 fun buildVitalsSummary(profile: ProfileWithVitals): Map<String, VitalsSummaryItem> {
     val normalList = mutableSetOf<String>()

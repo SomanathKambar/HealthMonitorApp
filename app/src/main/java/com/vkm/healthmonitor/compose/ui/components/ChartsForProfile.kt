@@ -16,7 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.github.mikephil.charting.data.Entry
-import com.vkm.healthmonitor.compose.data.model.ProfileWithVitals
+import com.vkm.healthmonitor.core.model.ProfileWithVitals
+import com.vkm.healthmonitor.core.model.calculateHealthStatus
 
 /**
  * Wrapper component that shows Family Pie chart and Vitals line chart.

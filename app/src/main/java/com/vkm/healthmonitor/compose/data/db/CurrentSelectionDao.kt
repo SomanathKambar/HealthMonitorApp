@@ -2,7 +2,7 @@ package com.vkm.healthmonitor.compose.data.db
 
 
 import androidx.room.*
-import com.vkm.healthmonitor.compose.data.model.CurrentSelection
+import com.vkm.healthmonitor.core.model.CurrentSelection
 import kotlinx.coroutines.flow.Flow
 
 @Dao

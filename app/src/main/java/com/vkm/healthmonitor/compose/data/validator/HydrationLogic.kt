@@ -1,6 +1,6 @@
 package com.vkm.healthmonitor.compose.data.validator
 
-import com.vkm.healthmonitor.compose.data.model.Profile
+import com.vkm.healthmonitor.core.model.Profile
 
 object HydrationLogic {
     /**

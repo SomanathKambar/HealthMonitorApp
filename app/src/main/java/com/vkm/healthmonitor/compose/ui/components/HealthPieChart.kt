@@ -21,7 +21,8 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.vkm.healthmonitor.compose.data.model.ProfileWithVitals
+import com.vkm.healthmonitor.core.model.HealthStatus
+import com.vkm.healthmonitor.core.model.ProfileWithVitals
 
 @Composable
 fun HealthPieChart(profile: ProfileWithVitals, status: HealthStatus, modifier: Modifier = Modifier) {

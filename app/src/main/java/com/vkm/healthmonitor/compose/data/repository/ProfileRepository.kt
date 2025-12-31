@@ -4,10 +4,10 @@ package com.vkm.healthmonitor.compose.data.repository
 import android.content.Context
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vkm.healthmonitor.compose.data.db.AppDatabase
-import com.vkm.healthmonitor.compose.data.model.CurrentSelection
-import com.vkm.healthmonitor.compose.data.model.Profile
-import com.vkm.healthmonitor.compose.data.model.ProfileWithVitals
-import com.vkm.healthmonitor.compose.util.awaitTask
+import com.vkm.healthmonitor.core.model.CurrentSelection
+import com.vkm.healthmonitor.core.model.Profile
+import com.vkm.healthmonitor.core.model.ProfileWithVitals
+import com.vkm.healthmonitor.core.common.awaitTask
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

@@ -6,7 +6,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vkm.healthmonitor.compose.data.db.AppDatabase
-import com.vkm.healthmonitor.compose.util.awaitTask
+import com.vkm.healthmonitor.core.common.awaitTask
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers

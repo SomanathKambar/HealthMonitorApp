@@ -1,7 +1,7 @@
 package com.vkm.healthmonitor.compose.data.db
 
 import androidx.room.*
-import com.vkm.healthmonitor.compose.data.model.VitalEntry
+import com.vkm.healthmonitor.core.model.VitalEntry
 import kotlinx.coroutines.flow.Flow
 
 @Dao

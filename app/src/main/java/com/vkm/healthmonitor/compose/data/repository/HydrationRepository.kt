@@ -3,12 +3,12 @@ package com.vkm.healthmonitor.compose.data.repository
 import android.content.Context
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vkm.healthmonitor.compose.data.db.AppDatabase
-import com.vkm.healthmonitor.compose.data.model.HydrationLog
-import com.vkm.healthmonitor.compose.data.result.HydrationResult
+import com.vkm.healthmonitor.core.model.HydrationLog
+import com.vkm.healthmonitor.core.model.HydrationResult
 import com.vkm.healthmonitor.compose.data.validator.HydrationLogic
 import com.vkm.healthmonitor.compose.prefrence.HydrationPrefs
 import com.vkm.healthmonitor.compose.util.HydrationUtil
-import com.vkm.healthmonitor.compose.util.awaitTask
+import com.vkm.healthmonitor.core.common.awaitTask
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -262,9 +262,10 @@ class HydrationRepository @Inject constructor(
         if (last != null) {
             hydrationDao.deleteById(last.id)
 
-            if (last.firestoreId != null) {
+            val fsId = last.firestoreId
+            if (fsId != null) {
                 try {
-                    fs.collection("hydration").document(last.firestoreId).delete().awaitTask()
+                    fs.collection("hydration").document(fsId).delete().awaitTask()
                 } catch (e: Exception) {
                     e.printStackTrace() // handle sync issue
                 }

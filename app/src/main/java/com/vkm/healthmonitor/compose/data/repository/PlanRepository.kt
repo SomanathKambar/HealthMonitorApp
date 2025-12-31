@@ -7,8 +7,8 @@ import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vkm.healthmonitor.compose.data.db.AppDatabase
-import com.vkm.healthmonitor.compose.data.model.HealthPlan
-import com.vkm.healthmonitor.compose.util.awaitTask
+import com.vkm.healthmonitor.core.model.HealthPlan
+import com.vkm.healthmonitor.core.common.awaitTask
 import com.vkm.healthmonitor.compose.worker.SchedulePlanNotificationWorker
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers

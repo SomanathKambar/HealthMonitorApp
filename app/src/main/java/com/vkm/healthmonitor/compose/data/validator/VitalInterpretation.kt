@@ -1,8 +1,8 @@
 package com.vkm.healthmonitor.compose.data.validator
 
-import com.vkm.healthmonitor.compose.data.model.HealthPlan
-import com.vkm.healthmonitor.compose.data.model.HealthStandard
-import com.vkm.healthmonitor.compose.data.model.VitalEntry
+import com.vkm.healthmonitor.core.model.HealthPlan
+import com.vkm.healthmonitor.core.model.HealthStandard
+import com.vkm.healthmonitor.core.model.VitalEntry
 
 data class VitalInterpretation(val label: String, val message: String, val level: Int)
 

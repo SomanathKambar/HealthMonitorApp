@@ -7,7 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.vkm.healthmonitor.compose.data.model.ProfileWithVitals
+import com.vkm.healthmonitor.core.model.ProfileWithVitals
 import com.vkm.healthmonitor.compose.ui.components.ChartsForProfiles
 import com.vkm.healthmonitor.compose.ui.components.ProfileSelector
 import com.vkm.healthmonitor.compose.viewmodel.ProfileListViewModel

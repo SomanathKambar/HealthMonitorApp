@@ -4,8 +4,8 @@ package com.vkm.healthmonitor.compose.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vkm.healthmonitor.compose.data.model.HealthStandard
-import com.vkm.healthmonitor.compose.data.model.VitalEntry
+import com.vkm.healthmonitor.core.model.HealthStandard
+import com.vkm.healthmonitor.core.model.VitalEntry
 import com.vkm.healthmonitor.compose.data.repository.HealthRepository
 import com.vkm.healthmonitor.compose.data.repository.ProfileRepository
 import com.vkm.healthmonitor.compose.data.repository.VitalRepository
