@@ -6,7 +6,7 @@ import com.vkm.healthmonitor.core.database.AppDatabase
 import com.vkm.healthmonitor.core.model.HydrationLog
 import com.vkm.healthmonitor.core.model.HydrationResult
 import com.vkm.healthmonitor.compose.data.validator.HydrationLogic
-import com.vkm.healthmonitor.compose.prefrence.HydrationPrefs
+import com.vkm.healthmonitor.core.datastore.HydrationPrefs
 import com.vkm.healthmonitor.compose.util.HydrationUtil
 import com.vkm.healthmonitor.core.common.awaitTask
 import dagger.hilt.android.qualifiers.ApplicationContext

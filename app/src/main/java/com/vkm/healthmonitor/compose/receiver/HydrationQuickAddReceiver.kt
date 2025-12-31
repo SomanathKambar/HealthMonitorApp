@@ -3,7 +3,7 @@ package com.vkm.healthmonitor.compose.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.vkm.healthmonitor.compose.prefrence.HydrationPrefs
+import com.vkm.healthmonitor.core.datastore.HydrationPrefs
 import com.vkm.healthmonitor.constant.AppConstants
 import dagger.hilt.android.EntryPointAccessors
 import kotlinx.coroutines.CoroutineScope

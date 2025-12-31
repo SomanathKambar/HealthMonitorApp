@@ -1,4 +1,4 @@
-package com.vkm.healthmonitor.compose.prefrence
+package com.vkm.healthmonitor.core.datastore
 
 import android.content.Context
 import androidx.core.content.edit
