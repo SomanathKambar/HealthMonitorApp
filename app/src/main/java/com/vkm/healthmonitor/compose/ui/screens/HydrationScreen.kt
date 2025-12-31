@@ -29,7 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.vkm.healthmonitor.compose.data.validator.HydrationLogic
+import com.vkm.healthmonitor.core.common.validator.HydrationLogic
 import com.vkm.healthmonitor.compose.ui.components.ProfileSelector
 import com.vkm.healthmonitor.compose.viewmodel.HydrationViewModel
 import com.vkm.healthmonitor.compose.viewmodel.ProfileListViewModel

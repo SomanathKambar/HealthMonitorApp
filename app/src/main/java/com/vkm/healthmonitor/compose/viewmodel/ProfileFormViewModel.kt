@@ -3,7 +3,7 @@ package com.vkm.healthmonitor.compose.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vkm.healthmonitor.core.model.Profile
-import com.vkm.healthmonitor.compose.data.repository.ProfileRepository
+import com.vkm.healthmonitor.core.data.repository.ProfileRepository
 import com.vkm.healthmonitor.compose.ui.state.ProfileUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -3,7 +3,7 @@ package com.vkm.healthmonitor.compose.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vkm.healthmonitor.core.model.HealthPlan
-import com.vkm.healthmonitor.compose.data.repository.PlanRepository
+import com.vkm.healthmonitor.core.data.repository.PlanRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

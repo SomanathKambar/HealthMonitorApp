@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vkm.healthmonitor.core.model.HealthStandard
 import com.vkm.healthmonitor.core.model.VitalEntry
-import com.vkm.healthmonitor.compose.data.repository.HealthRepository
-import com.vkm.healthmonitor.compose.data.repository.ProfileRepository
-import com.vkm.healthmonitor.compose.data.repository.VitalRepository
-import com.vkm.healthmonitor.compose.data.validator.Validator
+import com.vkm.healthmonitor.core.data.repository.HealthRepository
+import com.vkm.healthmonitor.core.data.repository.ProfileRepository
+import com.vkm.healthmonitor.core.data.repository.VitalRepository
+import com.vkm.healthmonitor.core.common.validator.Validator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

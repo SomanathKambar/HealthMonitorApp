@@ -7,7 +7,7 @@ import android.os.Build
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.google.firebase.FirebaseApp
-import com.vkm.healthmonitor.compose.worker.HydrationSyncManager
+import com.vkm.healthmonitor.core.data.worker.HydrationSyncManager
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 

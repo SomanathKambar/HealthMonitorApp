@@ -13,8 +13,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.vkm.healthmonitor.compose.ui.screens.MainAppScaffold
-import com.vkm.healthmonitor.compose.util.ReminderScheduler
-import com.vkm.healthmonitor.constant.AppConstants
+import com.vkm.healthmonitor.core.common.util.ReminderScheduler
+import com.vkm.healthmonitor.core.common.constant.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

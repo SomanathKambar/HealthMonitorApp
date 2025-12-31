@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.work.WorkManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vkm.healthmonitor.core.database.AppDatabase
-import com.vkm.healthmonitor.compose.data.repository.HealthRepository
-import com.vkm.healthmonitor.compose.data.repository.HydrationRepository
-import com.vkm.healthmonitor.compose.data.repository.PlanRepository
-import com.vkm.healthmonitor.compose.data.repository.ProfileRepository
-import com.vkm.healthmonitor.compose.data.repository.VitalRepository
+import com.vkm.healthmonitor.core.data.repository.HealthRepository
+import com.vkm.healthmonitor.core.data.repository.HydrationRepository
+import com.vkm.healthmonitor.core.data.repository.PlanRepository
+import com.vkm.healthmonitor.core.data.repository.ProfileRepository
+import com.vkm.healthmonitor.core.data.repository.VitalRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +23,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext ctx: Context): AppDatabase = AppDatabase.get(ctx)
+    
     @Provides
     @Singleton
     fun provideFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -45,8 +46,10 @@ object AppModule {
     @Provides
     @Singleton
     fun providePlanRepo(db: AppDatabase, fs: FirebaseFirestore, @ApplicationContext ctx: Context) =
-        PlanRepository(db, fs, ctx) @Provides
+        PlanRepository(db, fs, ctx)
+
+    @Provides
     @Singleton
     fun provideHealthRepo(db: AppDatabase, fs: FirebaseFirestore, @ApplicationContext ctx: Context) =
-        HealthRepository(db, fs,  WorkManager.getInstance(ctx))
+        HealthRepository(db, fs, WorkManager.getInstance(ctx), ctx)
 }
