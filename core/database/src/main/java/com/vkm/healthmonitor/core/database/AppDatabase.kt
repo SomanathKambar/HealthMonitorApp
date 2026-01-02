@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.vkm.healthmonitor.core.model.CurrentSelection
 import com.vkm.healthmonitor.core.model.DailyEnergyScore
+import com.vkm.healthmonitor.core.model.EnergyAdjustment
 import com.vkm.healthmonitor.core.model.HealthPlan
 import com.vkm.healthmonitor.core.model.HealthStandard
 import com.vkm.healthmonitor.core.model.HydrationLog
@@ -13,8 +14,8 @@ import com.vkm.healthmonitor.core.model.Profile
 import com.vkm.healthmonitor.core.model.VitalEntry
 
 @Database(
-    entities = [Profile::class, VitalEntry::class, HydrationLog::class, HealthStandard::class, HealthPlan::class, CurrentSelection::class, DailyEnergyScore::class],
-    version = 4,
+    entities = [Profile::class, VitalEntry::class, HydrationLog::class, HealthStandard::class, HealthPlan::class, CurrentSelection::class, DailyEnergyScore::class, EnergyAdjustment::class],
+    version = 5,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -25,6 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun plansDao(): HealthPlanDao
     abstract fun selectionDao(): CurrentSelectionDao
     abstract fun energyScoreDao(): EnergyScoreDao
+    abstract fun energyAdjustmentDao(): EnergyAdjustmentDao
 
     companion object {
         @Volatile

@@ -1,27 +1,21 @@
 package com.vkm.healthmonitor.core.data.repository
 
 import android.content.Context
-import androidx.work.ExistingWorkPolicy
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.workDataOf
 import com.google.firebase.firestore.FirebaseFirestore
-import com.vkm.healthmonitor.core.database.AppDatabase
+import com.vkm.healthmonitor.core.common.awaitTask
+import com.vkm.healthmonitor.core.common.util.HydrationUtil
+import com.vkm.healthmonitor.core.common.validator.HydrationLogic
 import com.vkm.healthmonitor.core.data.worker.HydrationReminderWorker
-import com.vkm.healthmonitor.core.common.constant.AppConstants
+import com.vkm.healthmonitor.core.database.AppDatabase
+import com.vkm.healthmonitor.core.datastore.HydrationPrefs
 import com.vkm.healthmonitor.core.model.HydrationLog
 import com.vkm.healthmonitor.core.model.HydrationResult
-import com.vkm.healthmonitor.core.common.validator.HydrationLogic
-import com.vkm.healthmonitor.core.datastore.HydrationPrefs
-import com.vkm.healthmonitor.core.common.util.HydrationUtil
-import com.vkm.healthmonitor.core.common.awaitTask
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
@@ -36,28 +30,6 @@ class HydrationRepository @Inject constructor(
     private val hydrationDao = db.hydrationDao()
     private val profileDao = db.profileDao()
     val scope = CoroutineScope(Dispatchers.IO)
-
-    init {
-        scope.launch {
-            fetchAllProfiles()
-        }
-    }
-
-//    suspend fun insertHydration(profileId: Int, amountMl: Int) = withContext(Dispatchers.IO) {
-//        val log = HydrationLog(profileId = profileId, amountMl = amountMl)
-//        hydrationDao.insert(log)
-//        HydrationPrefs.setLastReminderTime(ctx, profileId, System.currentTimeMillis())
-//        scheduleNextReminder(profileId)
-//        try {
-//            val map = mapOf(
-//                "profileId" to profileId,
-//                "timestamp" to log.timestamp,
-//                "amountMl" to amountMl
-//            )
-//            fs.collection("hydration").add(map).awaitTask()
-//        } catch (_: Exception) {
-//        }
-//    }
 
     suspend fun insertHydration(profileId: Int, amountMl: Int) = withContext(Dispatchers.IO) {
         val log = HydrationLog(profileId = profileId, amountMl = amountMl)
@@ -140,12 +112,17 @@ class HydrationRepository @Inject constructor(
                 fs.collection("hydration").whereEqualTo("profileId", profileId).get().awaitTask()
             snap.documents.forEach { doc ->
                 val data = doc.data ?: return@forEach
-                val h = HydrationLog(
-                    profileId = (data["profileId"] as? Long)?.toInt() ?: profileId,
-                    timestamp = (data["timestamp"] as? Long) ?: System.currentTimeMillis(),
-                    amountMl = (data["amountMl"] as? Long)?.toInt() ?: 0
-                )
-                hydrationDao.insert(h)
+                val fId = doc.id
+                // Check if already exists locally
+                if (hydrationDao.getByFirestoreId(fId) == null) {
+                    val h = HydrationLog(
+                        profileId = (data["profileId"] as? Long)?.toInt() ?: profileId,
+                        timestamp = (data["timestamp"] as? Long) ?: System.currentTimeMillis(),
+                        amountMl = (data["amountMl"] as? Long)?.toInt() ?: 0,
+                        firestoreId = fId
+                    )
+                    hydrationDao.insert(h)
+                }
             }
         } catch (_: Exception) {
         }

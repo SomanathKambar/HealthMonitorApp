@@ -17,7 +17,8 @@ class HydrationQuickAddReceiver  : BroadcastReceiver() {
             val profileId = intent.getIntExtra(AppConstants.WORK_DATA_KEY_PROFILE_ID, -1)
             val amount = intent.getStringExtra(AppConstants.WORK_DATA_KEY_AMOUNT_ML)
             profileId?.let { id ->
-                amount?.let {
+                val amountInt = amount?.toIntOrNull() ?: 250 
+                if (id != -1) {
                     CoroutineScope(Dispatchers.IO).launch {
                         val appContext = context.applicationContext
                         val entryPoint = EntryPointAccessors.fromApplication(
@@ -25,8 +26,8 @@ class HydrationQuickAddReceiver  : BroadcastReceiver() {
                             HydrationReceiverEntryPoint::class.java
                         )
                         val repo = entryPoint.hydrationRepository()
-                        repo.tryAddHydration( id.toInt(), amount.toInt())
-                        HydrationPrefs.setLastReminderTime(context, id.toInt(), System.currentTimeMillis())
+                        repo.tryAddHydration(id, amountInt)
+                        HydrationPrefs.setLastReminderTime(context, id, System.currentTimeMillis())
                     }
                 }
             }

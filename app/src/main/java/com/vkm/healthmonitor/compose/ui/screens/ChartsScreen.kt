@@ -78,8 +78,8 @@ fun ChartsScreen(
                     
                     // We'll show a fallback or the actual trend
                     val history = listOf(
-                        Entry(1f, 65f), Entry(2f, 78f), Entry(3f, 72f), 
-                        Entry(4f, 85f), Entry(5f, 80f), Entry(6f, 92f), Entry(7f, 88f)
+                        Entry(0f, 0f), Entry(0f, 0f), Entry(0f, 0f),
+                        Entry(0f, 0f), Entry(0f, 0f), Entry(0f, 0f), Entry(7f, 88f)
                     )
                     
                     LineChartView(

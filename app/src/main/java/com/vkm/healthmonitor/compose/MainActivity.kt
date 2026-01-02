@@ -7,11 +7,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import com.vkm.healthmonitor.compose.ui.screens.MainAppScaffold
 import com.vkm.healthmonitor.core.common.util.ReminderScheduler
 import com.vkm.healthmonitor.core.common.constant.AppConstants
@@ -19,7 +19,7 @@ import com.vkm.healthmonitor.core.designsystem.theme.HealthMonitorTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
 
     private val requiredPermissions = mutableListOf(
         Manifest.permission.POST_NOTIFICATIONS

@@ -12,6 +12,7 @@ import com.vkm.healthmonitor.feature.profile.ProfileFormScreen
 import com.vkm.healthmonitor.feature.profile.ProfileListScreen
 import com.vkm.healthmonitor.feature.home.EnergyDashboardScreen
 import com.vkm.healthmonitor.feature.home.LightProtocolScreen
+import com.vkm.healthmonitor.feature.home.VitalHistoryScreen
 import com.vkm.healthmonitor.compose.ui.screens.VitalsScreen
 
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,11 +27,15 @@ fun MainNavHost(navController: NavHostController, paddingValues: PaddingValues) 
                 paddingValues = paddingValues,
                 onNavigateToProfile = { navController.navigate(Screen.Profile.route) },
                 onNavigateToHydration = { navController.navigate(Screen.Hydration.route) },
-                onNavigateToLightProtocol = { navController.navigate(Screen.LightProtocol.route) }
+                onNavigateToLightProtocol = { navController.navigate(Screen.LightProtocol.route) },
+                onNavigateToVitalHistory = { navController.navigate(Screen.VitalHistory.route) }
             ) 
         }
         composable(Screen.LightProtocol.route) {
             LightProtocolScreen(onBack = { navController.popBackStack() })
+        }
+        composable(Screen.VitalHistory.route) {
+            VitalHistoryScreen(navController)
         }
         composable(Screen.Profile.route) { ProfileFormScreen(navController, paddingValues = paddingValues) }
         composable(Screen.ProfileForm.route) { ProfileFormScreen(navController, paddingValues = paddingValues) }

@@ -156,6 +156,9 @@ import java.util.Locale
 //    }
 //}
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
+
 @Composable
 fun LineChartView(
     label: String,
@@ -165,35 +168,49 @@ fun LineChartView(
 ) {
     if (entries.isEmpty()) return
 
+    val isDark = isSystemInDarkTheme()
+    val textColor = if (isDark) android.graphics.Color.WHITE else android.graphics.Color.BLACK
+
     AndroidView(factory = { ctx: Context ->
         LineChart(ctx).apply {
-            description = Description().apply { text = label }
+            description = Description().apply { 
+                text = label 
+                this.textColor = textColor
+            }
             axisRight.isEnabled = false
             legend.isEnabled = true
+            legend.textColor = textColor
 
-            // X axis as time (timestamp)
             xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.textColor = textColor
             xAxis.valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
-                    // format timestamp -> HH:mm
                     val date = Date(value.toLong())
                     val format = SimpleDateFormat("HH:mm", Locale.getDefault())
                     return format.format(date)
                 }
             }
+            
+            axisLeft.textColor = textColor
+            setGridBackgroundColor(android.graphics.Color.TRANSPARENT)
+            setDrawGridBackground(false)
         }
     }, update = { chart ->
         val ds = LineDataSet(entries, label).apply {
-            setDrawCircles(true)        // show dots
-            circleRadius = 4f           // marker size
+            setDrawCircles(true)
+            circleRadius = 4f
             setCircleColor(color.toArgb())
             lineWidth = 2f
             this.color = color.toArgb()
-            valueTextColor = color.toArgb()
-            setDrawValues(false)        // hide value text over points
-            mode = LineDataSet.Mode.LINEAR // smooth ECG-style
+            valueTextColor = textColor
+            setDrawValues(false)
+            mode = LineDataSet.Mode.LINEAR
         }
         chart.data = LineData(ds)
+        chart.description.textColor = textColor
+        chart.legend.textColor = textColor
+        chart.xAxis.textColor = textColor
+        chart.axisLeft.textColor = textColor
         chart.invalidate()
     }, modifier = modifier.fillMaxWidth().height(250.dp))
 }

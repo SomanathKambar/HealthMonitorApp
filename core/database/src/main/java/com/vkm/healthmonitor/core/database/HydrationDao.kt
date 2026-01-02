@@ -29,6 +29,9 @@ interface HydrationDao {
     @Query("SELECT * FROM hydration WHERE profileId = :profileId AND timestamp > :afterTime ORDER BY timestamp DESC Limit 1")
     suspend fun getIntakeAfter(profileId: Int, afterTime: Long): HydrationLog
 
+    @Query("SELECT * FROM hydration WHERE firestoreId = :firestoreId LIMIT 1")
+    suspend fun getByFirestoreId(firestoreId: String): HydrationLog?
+
     @Query("UPDATE hydration SET firestoreId = :firestoreId WHERE id = :localId")
     suspend fun updateFirestoreId(localId: Int, firestoreId: String)
 

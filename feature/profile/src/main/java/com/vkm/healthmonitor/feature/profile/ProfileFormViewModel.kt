@@ -61,6 +61,23 @@ class ProfileFormViewModel @Inject constructor(
     fun onSleepGoalChange(v: String) { _uiState.value = _uiState.value.copy(dailySleepGoal = v) }
     fun onCaffeineChange(v: String) { _uiState.value = _uiState.value.copy(caffeineSensitivity = v) }
 
+    fun validate(): Boolean {
+        val s = _uiState.value
+        val nameErr = if (s.name.isBlank()) "Name is required" else null
+        val ageErr = if (s.age.toIntOrNull() == null || s.age.toInt() <= 0) "Invalid age" else null
+        val heightErr = if (s.height.toFloatOrNull() == null || s.height.toFloat() <= 0) "Invalid height" else null
+        val weightErr = if (s.weight.toFloatOrNull() == null || s.weight.toFloat() <= 0) "Invalid weight" else null
+
+        _uiState.value = s.copy(
+            nameError = nameErr,
+            ageError = ageErr,
+            heightError = heightErr,
+            weightError = weightErr
+        )
+
+        return nameErr == null && ageErr == null && heightErr == null && weightErr == null
+    }
+
     fun saveProfile() {
         viewModelScope.launch {
             val s = _uiState.value
@@ -86,12 +103,16 @@ class ProfileFormViewModel @Inject constructor(
                 dailySleepGoalHours = s.dailySleepGoal.toFloatOrNull() ?: 8f,
                 caffeineSensitivity = s.caffeineSensitivity
             )
-            repo.insertOrUpdate(profile)
+            val newId = repo.insertOrUpdate(profile)
+            repo.setCurrentProfile(newId.toInt())
         }
     }
 
     fun selectProfile(id: Int?) {
         _selectedProfile.value = id
+        id?.let {
+            viewModelScope.launch { repo.setCurrentProfile(it) }
+        }
     }
 
     fun loadOwnerProfile() {
@@ -104,6 +125,7 @@ class ProfileFormViewModel @Inject constructor(
                     name = owner.name,
                     age = owner.age.toString(),
                     gender = owner.gender,
+                    relation = owner.relationTo ?: "Self",
                     height = owner.heightCm.toString(),
                     weight = owner.weightKg.toString(),
                     waterGoal = owner.dailyWaterGoalMl.toString(),

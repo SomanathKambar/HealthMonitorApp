@@ -41,6 +41,11 @@ import androidx.navigation.NavController
 import com.vkm.healthmonitor.core.common.Screen
 import kotlinx.coroutines.launch
 
+import androidx.compose.ui.platform.LocalContext
+import com.vkm.healthmonitor.core.common.BiometricHelper
+import com.vkm.healthmonitor.core.common.BiometricLauncher
+import androidx.fragment.app.FragmentActivity
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileFormScreen(
@@ -49,11 +54,34 @@ fun ProfileFormScreen(
     paddingValues: androidx.compose.foundation.layout.PaddingValues = androidx.compose.foundation.layout.PaddingValues(0.dp)
 ) {
     val state by vm.uiState.collectAsState()
+    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val scrollState = rememberScrollState()
+    
+    val biometricHelper = remember { BiometricHelper(context) }
 
-    // ... (LaunchedEffect remains same)
+    val authLauncher = remember(context) {
+        BiometricLauncher(
+            activity = context as FragmentActivity,
+            onAuthenticationSucceeded = {
+                vm.saveProfile()
+                nav.navigate(Screen.EnergyDashboard.route) {
+                    popUpTo(Screen.EnergyDashboard.route) { inclusive = true }
+                }
+            },
+            onAuthenticationError = { _, errString ->
+                coroutineScope.launch { snackbarHostState.showSnackbar(errString) }
+            },
+            onAuthenticationFailed = {
+                coroutineScope.launch { snackbarHostState.showSnackbar("Authentication failed") }
+            }
+        )
+    }
+
+    LaunchedEffect(Unit) {
+        vm.loadOwnerProfile()
+    }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -79,7 +107,9 @@ fun ProfileFormScreen(
                 value = state.name, 
                 onValueChange = { vm.onNameChange(it) }, 
                 label = { Text("Display Name") },
-                shape = MaterialTheme.shapes.medium
+                shape = MaterialTheme.shapes.medium,
+                isError = state.nameError != null,
+                supportingText = state.nameError?.let { { Text(it) } }
             )
             
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -88,7 +118,9 @@ fun ProfileFormScreen(
                     value = state.age, 
                     onValueChange = { vm.onAgeChange(it) }, 
                     label = { Text("Age") },
-                    shape = MaterialTheme.shapes.medium
+                    shape = MaterialTheme.shapes.medium,
+                    isError = state.ageError != null,
+                    supportingText = state.ageError?.let { { Text(it) } }
                 )
                 // Gender dropdown
                 var genderExpanded by remember { mutableStateOf(false) }
@@ -121,8 +153,22 @@ fun ProfileFormScreen(
             }
 
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(modifier = Modifier.weight(1f), value = state.height, onValueChange = { vm.onHeightChange(it) }, label = { Text("Height (cm)") })
-                OutlinedTextField(modifier = Modifier.weight(1f), value = state.weight, onValueChange = { vm.onWeightChange(it) }, label = { Text("Weight (kg)") })
+                OutlinedTextField(
+                    modifier = Modifier.weight(1f), 
+                    value = state.height, 
+                    onValueChange = { vm.onHeightChange(it) }, 
+                    label = { Text("Height (cm)") },
+                    isError = state.heightError != null,
+                    supportingText = state.heightError?.let { { Text(it) } }
+                )
+                OutlinedTextField(
+                    modifier = Modifier.weight(1f), 
+                    value = state.weight, 
+                    onValueChange = { vm.onWeightChange(it) }, 
+                    label = { Text("Weight (kg)") },
+                    isError = state.weightError != null,
+                    supportingText = state.weightError?.let { { Text(it) } }
+                )
             }
             
             Spacer(Modifier.height(8.dp))
@@ -160,13 +206,22 @@ fun ProfileFormScreen(
             Button(
                 modifier = Modifier.fillMaxWidth().height(56.dp),
                 onClick = {
-                    if (state.name.isBlank()) {
-                        coroutineScope.launch { snackbarHostState.showSnackbar("Name is required") }
-                    } else {
-                        vm.saveProfile()
-                        nav.navigate(Screen.EnergyDashboard.route) {
-                            popUpTo(Screen.EnergyDashboard.route) { inclusive = true }
+                    if (vm.validate()) {
+                        if (biometricHelper.canAuthenticate()) {
+                            authLauncher.authenticate(
+                                biometricHelper.createPromptInfo(
+                                    title = "Authorize Save",
+                                    subtitle = "Confirm your identity to save profile"
+                                )
+                            )
+                        } else {
+                            vm.saveProfile()
+                            nav.navigate(Screen.EnergyDashboard.route) {
+                                popUpTo(Screen.EnergyDashboard.route) { inclusive = true }
+                            }
                         }
+                    } else {
+                        coroutineScope.launch { snackbarHostState.showSnackbar("Please correct the errors") }
                     }
                 },
                 shape = MaterialTheme.shapes.large

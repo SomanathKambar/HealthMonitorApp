@@ -24,6 +24,8 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.vkm.healthmonitor.core.model.HealthStatus
 import com.vkm.healthmonitor.core.model.ProfileWithVitals
 
+import androidx.compose.foundation.isSystemInDarkTheme
+
 @Composable
 fun HealthPieChart(profile: ProfileWithVitals, status: HealthStatus, modifier: Modifier = Modifier) {
     var sheetVisible by remember { mutableStateOf(false) }
@@ -32,14 +34,17 @@ fun HealthPieChart(profile: ProfileWithVitals, status: HealthStatus, modifier: M
     var sheetRec by remember { mutableStateOf("") }
 
     val vitalsSummary = buildVitalsSummary(profile)
+    val isDark = isSystemInDarkTheme()
+    val textColor = if (isDark) android.graphics.Color.WHITE else android.graphics.Color.BLACK
 
     Box(modifier) {
         AndroidView(factory = { ctx: Context ->
             PieChart(ctx).apply {
                 description.isEnabled = false
                 setUsePercentValues(true)
-                setEntryLabelColor(android.graphics.Color.BLACK)
+                setEntryLabelColor(textColor)
                 legend.isWordWrapEnabled = true
+                legend.textColor = textColor
             }
         }, update = { chart ->
             val entries = listOf(
@@ -54,13 +59,16 @@ fun HealthPieChart(profile: ProfileWithVitals, status: HealthStatus, modifier: M
                     android.graphics.Color.parseColor("#F44336")  // red
                 )
                 valueTextSize = 12f
+                valueTextColor = textColor
             }
             chart.data = PieData(ds)
+            chart.setEntryLabelColor(textColor)
+            chart.legend.textColor = textColor
 
             chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                 override fun onValueSelected(e: Entry?, h: Highlight?) {
                     if (e is PieEntry) {
-                        val slice = e.label
+                        val slice = e.label.uppercase()
                         val detail = vitalsSummary[slice]
                         sheetTitle = "${status.name} → $slice Vitals"
                         sheetDetails = detail?.issues ?: "No details"
@@ -79,6 +87,7 @@ fun HealthPieChart(profile: ProfileWithVitals, status: HealthStatus, modifier: M
         androidx.compose.material3.Text(
             "${status.name}: ${status.normalCount} normal, ${status.warningCount} warning, ${status.criticalCount} critical vitals.",
             style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(top = 8.dp)
         )
     }

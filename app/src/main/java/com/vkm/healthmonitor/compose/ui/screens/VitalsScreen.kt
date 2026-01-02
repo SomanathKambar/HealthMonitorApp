@@ -14,6 +14,11 @@ import com.vkm.healthmonitor.feature.profile.ProfileListViewModel
 import com.vkm.healthmonitor.compose.viewmodel.VitalsViewModel
 import kotlinx.coroutines.launch
 
+import androidx.compose.ui.platform.LocalContext
+import com.vkm.healthmonitor.core.common.BiometricHelper
+import com.vkm.healthmonitor.core.common.BiometricLauncher
+import androidx.fragment.app.FragmentActivity
+
 @Composable
 fun VitalsScreen(
     vitalsVm: VitalsViewModel = hiltViewModel(),
@@ -21,9 +26,29 @@ fun VitalsScreen(
 ) {
     val profiles by profileVm.profiles.collectAsState()
     val selected by profileVm.selectedProfile.collectAsState()
+    val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     
+    val biometricHelper = remember { BiometricHelper(context) }
+
+    val authLauncher = remember(context) {
+        BiometricLauncher(
+            activity = context as FragmentActivity,
+            onAuthenticationSucceeded = {
+                vitalsVm.addVital(selected!!.id) { validation ->
+                    scope.launch { snackbarHostState.showSnackbar(validation) }
+                }
+            },
+            onAuthenticationError = { _, errString ->
+                scope.launch { snackbarHostState.showSnackbar(errString) }
+            },
+            onAuthenticationFailed = {
+                scope.launch { snackbarHostState.showSnackbar("Authentication failed") }
+            }
+        )
+    }
+
     Column(
         Modifier
             .fillMaxSize()
@@ -76,8 +101,17 @@ fun VitalsScreen(
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Button(onClick = {
                     if (selected != null) {
-                        vitalsVm.addVital(selected!!.id) { validation ->
-                            scope.launch { snackbarHostState.showSnackbar(validation) }
+                        if (biometricHelper.canAuthenticate()) {
+                            authLauncher.authenticate(
+                                biometricHelper.createPromptInfo(
+                                    title = "Authorize Vital Entry",
+                                    subtitle = "Confirm your identity to save vitals"
+                                )
+                            )
+                        } else {
+                            vitalsVm.addVital(selected!!.id) { validation ->
+                                scope.launch { snackbarHostState.showSnackbar(validation) }
+                            }
                         }
                     }
                 }) { Text("Save Vitals") }

@@ -7,6 +7,24 @@
 
 A robust, modern Android application for monitoring health vitals, hydration, and family health profiles. This project serves as a reference implementation for **Clean Architecture**, **Modularization**, and **Modern Android Development (MAD)** practices.
 
+## ✨ Key Features (Latest Updates)
+
+### 🔋 Bio-Battery & Dynamic Energy
+*   **Real-time Energy Tracking:** A dynamic system that calculates your "Body Battery" based on sleep, activity, and time since wake-up.
+*   **Manual Adjustments:** Log rest, food intake, deep work, or exercise to see instant impact on your metabolic balance.
+*   **Animated Battery UI:** Custom-built, theme-aware animated battery component with color-coded states (Red/Yellow/Green).
+
+### 📊 Metabolic Log Book & Trends
+*   **7-Day Bio-Energy Trend:** Real historical tracking of your daily energy scores to identify patterns.
+*   **Interactive Metabolic Balance:** A detailed pie chart showing Recovery vs. Strain with interactive suggestions and issue detection.
+*   **Refined Vitals History:** Secure and searchable history of all metabolic vitals.
+
+### 🛡️ Enhanced Security & UX
+*   **Biometric Lock:** System-integrated fingerprint/face unlock for sensitive actions like saving health profiles or vital entries.
+*   **Corporate Athlete Focus:** Dynamic, time-based dashboard tips providing witty, actionable advice tailored for high-performance employees.
+*   **Smart Hydration:** Intelligent reminder system with duplicate detection and Firestore sync.
+*   **Theme Consistency:** Full Material 3 support with perfect contrast in both Light and Dark modes across all charts and logs.
+
 ## 🏗 Architecture & Design
 
 This application is currently transitioning to a fully modularized, scalable architecture suitable for enterprise-level development.

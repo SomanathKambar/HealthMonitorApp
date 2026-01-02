@@ -9,6 +9,7 @@ import com.vkm.healthmonitor.core.data.repository.HydrationRepository
 import com.vkm.healthmonitor.core.data.repository.PlanRepository
 import com.vkm.healthmonitor.core.data.repository.ProfileRepository
 import com.vkm.healthmonitor.core.data.repository.VitalRepository
+import com.vkm.healthmonitor.core.common.BiometricHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,6 +20,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideBiometricHelper(@ApplicationContext ctx: Context): BiometricHelper = BiometricHelper(ctx)
 
     @Provides
     @Singleton
