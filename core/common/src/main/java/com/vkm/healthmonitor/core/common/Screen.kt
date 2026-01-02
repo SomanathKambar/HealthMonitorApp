@@ -9,4 +9,6 @@ sealed class Screen(val route: String) {
     object Hydration : Screen("hydration")
     object Charts : Screen("charts")
     object Guides : Screen("guides")
+    object EnergyDashboard : Screen("energyDashboard")
+    object LightProtocol : Screen("lightProtocol")
 }

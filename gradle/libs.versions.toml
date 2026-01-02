@@ -10,6 +10,7 @@ activityCompose = "1.7.2"
 composeBom = "2023.08.00"
 composeUi = "1.5.0"
 composeMaterial = "1.5.0"
+composeCompiler = "1.4.6"
 appcompat = "1.7.0"
 material = "1.12.0"
 constraintlayout = "2.1.4"
@@ -26,9 +27,11 @@ hiltWork = "1.1.0"
 materialIconsExtended = "1.6.4"
 googleServices = "4.4.1"
 datastore = "1.0.0"
+healthConnect = "1.1.0-alpha07"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-health-connect-client = { group = "androidx.health.connect", name = "connect-client", version.ref = "healthConnect" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

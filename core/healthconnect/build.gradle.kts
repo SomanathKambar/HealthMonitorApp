@@ -5,13 +5,16 @@ plugins {
 }
 
 android {
-    namespace = "com.vkm.healthmonitor.core.datastore"
+    namespace = "com.vkm.healthmonitor.core.healthconnect"
 }
 
 dependencies {
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.datastore.preferences)
+    api(libs.androidx.health.connect.client)
     
+    implementation(project(":core:common"))
+    implementation(project(":core:model"))
+
     // Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)

@@ -1,37 +1,19 @@
 package com.vkm.healthmonitor.feature.hydration
 
-
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.Scaffold
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocalDrink
-import androidx.compose.material.rememberScaffoldState
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.vkm.healthmonitor.core.common.validator.HydrationLogic
-import com.vkm.healthmonitor.core.designsystem.components.ProfileSelector
-import com.vkm.healthmonitor.feature.hydration.HydrationViewModel
 import com.vkm.healthmonitor.feature.profile.ProfileListViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -40,103 +22,94 @@ import java.util.Locale
 @Composable
 fun HydrationScreen(
     vm: HydrationViewModel = hiltViewModel(),
-    profileVm: ProfileListViewModel = hiltViewModel()
+    profileVm: ProfileListViewModel = hiltViewModel(),
+    paddingValues: PaddingValues = PaddingValues(0.dp)
 ) {
     val profiles by profileVm.profiles.collectAsState()
-    val selected by profileVm.selectedProfile.collectAsState()
+    val soloProfile = profiles.firstOrNull() // SOLO MODE: Always take the first profile
     val total by vm.todayTotal.collectAsState()
     val logs by vm.todayLogs.collectAsState()
-    val context = LocalContext.current
-    val scaffoldState = rememberScaffoldState()
-
-    LaunchedEffect(Unit) {
-        vm.error.collect { msg ->
-            scaffoldState.snackbarHostState.showSnackbar(msg)
-        }
-    }
+    val scrollState = rememberScrollState()
 
     Column(
         Modifier
+            .padding(paddingValues)
             .fillMaxSize()
+            .verticalScroll(scrollState)
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        ProfileSelector(
-            profiles = profiles,
-            selectedProfile = selected,
-            onProfileSelected = { profileVm.selectProfile(it) }
-        )
-
-        if (selected == null) {
-            Text("Select a profile to track hydration")
+        Text("Metabolic Fueling", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+        
+        if (soloProfile == null) {
+            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)) {
+                Text("Please set up your profile first to track hydration goals.", modifier = Modifier.padding(16.dp))
+            }
         } else {
-            Scaffold(scaffoldState = scaffoldState) { pad ->
-                Column(
-                    Modifier
-                        .fillMaxSize()
-                        .padding(pad),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    LaunchedEffect(selected!!.id) {
-                        vm.observeFor(selected!!.id)
-                    }
+            LaunchedEffect(soloProfile.id) {
+                vm.observeFor(soloProfile.id)
+            }
 
-                    val goal = HydrationLogic.computeDailyGoal(selected!!)
-                    val safeMax = HydrationLogic.maxSafeIntake(goal)
+            val goal = soloProfile.dailyWaterGoalMl
+            val safeMax = goal + 1000
 
-                    Text(
-                        "${selected!!.name} - Hydration",
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                    LinearProgressIndicator(
-                        progress = (total.toFloat() / goal.toFloat()).coerceIn(0f, 1f),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(16.dp)
-                    )
-                    Text("$total ml / $goal ml")
-
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        listOf(100, 250, 500).forEach { amt ->
-                            val will = total + amt
-                            val enabled = will <= safeMax
-                            Button(
-                                onClick = { vm.addDrink(selected!!.id, amt) },
-                                enabled = enabled
-                            ) {
-                                Icon(Icons.Filled.LocalDrink, contentDescription = null)
-                                Spacer(Modifier.width(6.dp))
-                                Text("+${amt} ml")
-                            }
-                        }
-                        Button(
-                            onClick = { vm.removeLast(selected!!.id) },
-                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
-                        ) {
-                            Text("- Last")
-                        }
-                    }
-
-                    if (total >= goal) {
-                        Text("🎉 You’ve reached your hydration goal today!", color = Color.Green)
-                    } else if (total + 100 > safeMax) {
-                        Text(
-                            "⚠️ You are close to the safe limit (${safeMax} ml). Be cautious!",
-                            color = Color.Red
-                        )
-                    }
-
+            Card(modifier = Modifier.fillMaxWidth()) {
+                Column(Modifier.padding(16.dp)) {
+                    Text("Daily Efficiency Target", style = MaterialTheme.typography.titleSmall)
                     Spacer(Modifier.height(8.dp))
-                    Text("Today's logs:")
-                    Column(Modifier.fillMaxWidth()) {
-                        logs.forEach { l ->
-                            val time = SimpleDateFormat("HH:mm", Locale.getDefault())
-                                .format(Date(l.timestamp))
-                            Text("${l.amountMl} ml @ $time")
-                        }
+                    Box(contentAlignment = Alignment.Center) {
+                        LinearProgressIndicator(
+                            progress = (total.toFloat() / goal.toFloat()).coerceIn(0f, 1f),
+                            modifier = Modifier.fillMaxWidth().height(32.dp),
+                            strokeCap = androidx.compose.ui.graphics.StrokeCap.Round
+                        )
+                        Text("${total} / ${goal} ml", style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold)
                     }
                 }
             }
+
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                listOf(250, 500).forEach { amt ->
+                    Button(
+                        modifier = Modifier.weight(1f).height(56.dp),
+                        onClick = { vm.addDrink(soloProfile.id, amt) },
+                        shape = MaterialTheme.shapes.medium
+                    ) {
+                        Icon(Icons.Default.LocalDrink, null)
+                        Spacer(Modifier.width(4.dp))
+                        Text("+${amt}")
+                    }
+                }
+            }
+            
+            OutlinedButton(
+                onClick = { vm.removeLast(soloProfile.id) },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
+            ) {
+                Text("Undo Last Entry")
+            }
+
+            Text("Metabolic Activity", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+            
+            if (logs.isEmpty()) {
+                Text("No intake logged yet. Stay hydrated to maintain energy.", color = Color.Gray, style = MaterialTheme.typography.bodySmall)
+            }
+
+            logs.reversed().forEach { l ->
+                val time = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date(l.timestamp))
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f))
+                ) {
+                    Row(Modifier.padding(12.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text("${l.amountMl} ml", fontWeight = FontWeight.Bold)
+                        Text(time, color = Color.Gray)
+                    }
+                }
+            }
+            
+            Spacer(Modifier.height(40.dp))
         }
     }
 }

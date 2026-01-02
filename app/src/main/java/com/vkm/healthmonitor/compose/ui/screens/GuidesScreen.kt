@@ -495,7 +495,10 @@ fun loadGuidesBundle(ctx: Context): GuidesBundle {
 }
 
 @Composable
-fun GuidesScreen(navController: NavController?) {
+fun GuidesScreen(
+    navController: NavController?, 
+    paddingValues: androidx.compose.foundation.layout.PaddingValues = androidx.compose.foundation.layout.PaddingValues(0.dp)
+) {
     val ctx = LocalContext.current
     val guidesBundle = remember { loadGuidesBundle(ctx) }
     val healthTips = remember { loadHealthTips(ctx) }
@@ -508,6 +511,7 @@ fun GuidesScreen(navController: NavController?) {
     LazyColumn(
         state = listState,
         modifier = Modifier
+            .padding(bottom = paddingValues.calculateBottomPadding())
             .fillMaxWidth()
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)

@@ -10,17 +10,33 @@ import com.vkm.healthmonitor.compose.ui.screens.GuidesScreen
 import com.vkm.healthmonitor.feature.hydration.HydrationScreen
 import com.vkm.healthmonitor.feature.profile.ProfileFormScreen
 import com.vkm.healthmonitor.feature.profile.ProfileListScreen
+import com.vkm.healthmonitor.feature.home.EnergyDashboardScreen
+import com.vkm.healthmonitor.feature.home.LightProtocolScreen
 import com.vkm.healthmonitor.compose.ui.screens.VitalsScreen
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Box
+
 @Composable
-fun MainNavHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.ProfileList.route) {
-        composable(Screen.ProfileList.route) { ProfileListScreen(navController) }
-        composable(Screen.Profile.route) { ProfileListScreen(navController) }
-        composable(Screen.ProfileForm.route) { ProfileFormScreen(navController) }
+fun MainNavHost(navController: NavHostController, paddingValues: PaddingValues) {
+    NavHost(navController = navController, startDestination = Screen.EnergyDashboard.route) {
+        composable(Screen.EnergyDashboard.route) { 
+            EnergyDashboardScreen(
+                paddingValues = paddingValues,
+                onNavigateToProfile = { navController.navigate(Screen.Profile.route) },
+                onNavigateToHydration = { navController.navigate(Screen.Hydration.route) },
+                onNavigateToLightProtocol = { navController.navigate(Screen.LightProtocol.route) }
+            ) 
+        }
+        composable(Screen.LightProtocol.route) {
+            LightProtocolScreen(onBack = { navController.popBackStack() })
+        }
+        composable(Screen.Profile.route) { ProfileFormScreen(navController, paddingValues = paddingValues) }
+        composable(Screen.ProfileForm.route) { ProfileFormScreen(navController, paddingValues = paddingValues) }
         composable(Screen.Vitals.route) { VitalsScreen() }
-        composable(Screen.Hydration.route) { HydrationScreen() }
-        composable(Screen.Charts.route) { ChartsScreen() }
+        composable(Screen.Hydration.route) { HydrationScreen(paddingValues = paddingValues) }
+        composable(Screen.Charts.route) { ChartsScreen(paddingValues = paddingValues) }
         composable(Screen.Guides.route) { GuidesScreen(navController) }
     }
 }

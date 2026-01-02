@@ -13,7 +13,10 @@ data class Profile(
     val heightCm: Float = 0f,
     val weightKg: Float = 0f,
     val dailyWaterGoalMl: Int = 2000,
-    val bmi: Float = 0f
+    val bmi: Float = 0f,
+    val dailyStepGoal: Int = 10000,
+    val dailySleepGoalHours: Float = 8f,
+    val caffeineSensitivity: String = "Medium" // Low, Medium, High
 ) {
     companion object {
         fun computeBmi(heightCm: Float, weightKg: Float): Float {

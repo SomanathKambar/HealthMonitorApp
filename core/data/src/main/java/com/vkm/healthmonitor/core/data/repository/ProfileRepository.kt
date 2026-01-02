@@ -71,7 +71,10 @@ class ProfileRepository @Inject constructor(
                     weightKg = (map["weightKg"] as? Double)?.toFloat() ?: (map["weightKg"] as? Long)?.toFloat() ?: 0f,
                     dailyWaterGoalMl = (map["dailyWaterGoalMl"] as? Long)?.toInt() ?: (map["dailyWaterGoalMl"] as? Int ?: 2000),
                     bmi = (map["bmi"] as? Double)?.toFloat() ?: 0f,
-                    relationTo = map["relationTo"] as? String
+                    relationTo = map["relationTo"] as? String,
+                    dailyStepGoal = (map["dailyStepGoal"] as? Long)?.toInt() ?: 10000,
+                    dailySleepGoalHours = (map["dailySleepGoalHours"] as? Double)?.toFloat() ?: 8f,
+                    caffeineSensitivity = map["caffeineSensitivity"] as? String ?: "Medium"
                 )
                 profileDao.insert(p)
             }

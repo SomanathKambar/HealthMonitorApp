@@ -13,7 +13,7 @@ android {
     compileSdk 34
     defaultConfig {
         applicationId "com.vkm.healthmonitor"
-        minSdk 24
+        minSdk 26
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -31,7 +31,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.6'
+        kotlinCompilerExtensionVersion libs.versions.composeCompiler.get()
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -51,8 +51,10 @@ dependencies {
     implementation(project(":core:datastore"))
     implementation(project(":core:data"))
     implementation(project(":core:designsystem"))
+    implementation(project(":core:healthconnect"))
     implementation(project(":feature:hydration"))
     implementation(project(":feature:profile"))
+    implementation(project(":feature:home"))
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)

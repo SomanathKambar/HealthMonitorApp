@@ -11,6 +11,6 @@ fun MainAppScaffold() {
     Scaffold (
         bottomBar = { BottomBar(nav) }
     ) { innerPadding ->
-        MainNavHost(nav)
+        MainNavHost(nav, innerPadding)
     }
 }

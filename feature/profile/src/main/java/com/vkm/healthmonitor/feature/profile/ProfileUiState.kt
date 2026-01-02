@@ -8,7 +8,10 @@ data class ProfileUiState(
     val relation: String = "Self",
     val height: String = "",
     val weight: String = "",
-    val waterGoal: String = "2000"
+    val waterGoal: String = "2000",
+    val dailyStepGoal: String = "10000",
+    val dailySleepGoal: String = "8",
+    val caffeineSensitivity: String = "Medium"
 ) {
     companion object {
         fun computeBmi(heightCm: Float, weightKg: Float): Float {

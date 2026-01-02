@@ -14,11 +14,10 @@ import com.vkm.healthmonitor.core.common.Screen
 data class BottomNavItem(val route: String, val label: String, val icon: Int)
 
 val bottomItems = listOf(
-    BottomNavItem(Screen.Profile.route, "Profile", R.drawable.ic_profile),
-    BottomNavItem(Screen.Vitals.route, "Vitals", R.drawable.ic_vitals),
-    BottomNavItem(Screen.Hydration.route, "Hydration", R.drawable.ic_water),
-    BottomNavItem(Screen.Charts.route, "Charts", R.drawable.ic_chart),
-    BottomNavItem(Screen.Guides.route, "Guides", R.drawable.ic_guide)
+    BottomNavItem(Screen.EnergyDashboard.route, "Home", R.drawable.ic_notification),
+    BottomNavItem(Screen.Hydration.route, "Fueling", R.drawable.ic_water),
+    BottomNavItem(Screen.Charts.route, "History", R.drawable.ic_chart),
+    BottomNavItem(Screen.Profile.route, "Profile", R.drawable.ic_profile)
 )
 
 @Composable
@@ -29,7 +28,7 @@ fun BottomBar(navController: NavController) {
             val selected = backStack.value?.destination?.route == item.route
             NavigationBarItem(
                 selected = selected,
-                onClick = { navController.navigate(item.route) { popUpTo(Screen.Profile.route); launchSingleTop = true } },
+                onClick = { navController.navigate(item.route) { popUpTo(Screen.EnergyDashboard.route); launchSingleTop = true } },
                 icon = { Icon(painterResource(id = item.icon), contentDescription = item.label) },
                 label = { Text(item.label) }
             )

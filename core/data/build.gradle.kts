@@ -14,6 +14,7 @@ dependencies {
     implementation(project(":core:database"))
     implementation(project(":core:datastore"))
     implementation(project(":core:designsystem"))
+    implementation(project(":core:healthconnect"))
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
